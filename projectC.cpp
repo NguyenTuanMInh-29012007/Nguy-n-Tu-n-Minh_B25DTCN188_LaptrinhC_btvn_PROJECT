@@ -150,10 +150,10 @@ void  lock(struct room room[],int *n){ //case 3
 		}else if(room[index].status ==2){
 			printf("\nPhong %s da o che do BAO TRI!",roomId);
 			return;
-		}		
+		}	
+		room[index].status=2;
+		printf("Phong %s da duoc chuyen sang che do BAO TRI!",roomId);	
 	}
-	room[index].status=2;
-	printf("Phong %s da duoc chuyen sang che do BAO TRI!",roomId);
 } 
 
 void displayRoomsPaging(struct room room[], int n){ //case 4
@@ -620,4 +620,5 @@ int main(){
 	}while(1);
 return 0;
 }
+
 
