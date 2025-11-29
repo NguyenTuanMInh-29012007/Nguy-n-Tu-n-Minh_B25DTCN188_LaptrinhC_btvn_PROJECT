@@ -512,7 +512,6 @@ int main(){
 		printf("\n============================================");
 		printf("\n\nMoi ban nhap lua chon: ");
 		scanf("%d",&choice);
-		getchar();
 		
 		switch(choice){
 			case 1:{
@@ -620,6 +619,7 @@ int main(){
 	}while(1);
 return 0;
 }
+
 
 
 
