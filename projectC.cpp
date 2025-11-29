@@ -274,6 +274,22 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 			printf("\nBan phai nhap DUNG So Phong, xin luu y!\n"); 
 			continue;
 		}
+		while(1){
+      	char ch;
+		printf("\nBan co muon tiep tuc khong ('c' hay 'k'): ");
+		scanf(" %c",&ch);
+		getchar();
+		if(ch=='c'){
+			break;
+		}else if(ch=='k'){
+			printf("\nNhan Enter de thoat...");						
+			return;
+		}else{
+			printf("\nLua chon khong hop le!");
+		}
+		if(ch=='k')
+		break; 		
+		}
 		int index=-1;
     	for(int i=0;i<*n;i++){
 		 	if(strcmp(room[i].roomId, roomId)==0){
@@ -591,7 +607,7 @@ int main(){
 					checkIn(room, &n,booking, &count);
 					getchar();
 				}	
-				printf("\n\nNhan Enter de tiep tuc...");
+				printf("\nNhan Enter de quay lai MENU...");
 				getchar();							
 				break;
 			}
@@ -621,8 +637,3 @@ int main(){
 	}while(1);
 return 0;
 }
-
-
-
-
-
