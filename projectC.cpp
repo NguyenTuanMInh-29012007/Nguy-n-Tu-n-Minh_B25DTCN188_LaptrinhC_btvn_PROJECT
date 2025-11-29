@@ -411,7 +411,9 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 
 void PaymentHistory(struct booking bk[],int count,struct room room[],int *n){
 	if(count ==0){
+		getchar();
 		printf("\nChua co hoa don nao duoc tao!");
+		printf("\nNhan Enter de tiep tuc...");
 		return;
 	}
 	char roomId[5];
@@ -619,6 +621,7 @@ int main(){
 	}while(1);
 return 0;
 }
+
 
 
 
