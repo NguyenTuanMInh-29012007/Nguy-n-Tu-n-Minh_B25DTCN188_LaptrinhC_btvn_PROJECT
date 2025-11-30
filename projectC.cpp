@@ -121,9 +121,9 @@ void update(struct room room[],int *n){
 	if(room[index].price<=0){
 		printf("\nLoi: Gia phong phai lon hon 0!");
 		return;	
+	}	
+		printf("\nCap nhat thong tin phong thanh cong!");
 	}
-	}
-	printf("\nCap nhat thong tin phong thanh cong!");
 }
 
 void  lock(struct room room[],int *n){ 
@@ -659,3 +659,4 @@ int main(){
 	}while(1);
 return 0;
 }
+
