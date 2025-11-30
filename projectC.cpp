@@ -104,6 +104,7 @@ void update(struct room room[],int *n){
 		}
 	}
 	if(index==-1){
+		getchar(); 
 		printf("\nLoi: Khong tim thay so phong (RoomId) phong ban vua nhap");
 	}else{
 		printf("Nhap loai phong moi (1.Don // 2.Doi): ");
@@ -140,6 +141,7 @@ void  lock(struct room room[],int *n){
 		}
 	}
 	if(index==-1){
+		getchar(); 
 		printf("\nKhong tim thay phong %s !",roomId);
 	}else{
 		if(room[index].status == 1){
@@ -659,4 +661,3 @@ int main(){
 	}while(1);
 return 0;
 }
-
