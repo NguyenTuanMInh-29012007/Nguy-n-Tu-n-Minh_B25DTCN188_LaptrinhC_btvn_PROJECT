@@ -5,10 +5,10 @@
 #define MAX 100
 
 struct room{
-	char roomId[5];
-	int type;
-	double price;
-	int status;
+	char roomId[5];//so phong
+	int type;//loai phong
+	double price;//gia phong
+	int status;//trang thai 
 }; 
 
 struct date{
@@ -18,15 +18,15 @@ struct date{
 };
 
 struct booking{
-	int bookId;
-	char roomId[5];
-	char customerName[50];
-	int days;
-	double totalCost;
-	struct date date;
+	int bookId;//ma dat phong
+	char roomId[5];//so phong
+	char customerName[50];//ten khach hang
+	int days;//so ngay thue
+	double totalCost;//tienn thue = gia(price) * so ngay(days)
+	struct date date;//Ngay nhan phong
 };
 
-void addSampleRooms(struct room room[], int *n){ 
+void addSampleRooms(struct room room[], int *n){ //list co san
     struct room avaiable[] = {
         {"101", 1, 350, 0},
         {"102", 2, 500, 0},
@@ -46,7 +46,7 @@ void addSampleRooms(struct room room[], int *n){
     }
 }
 
-void addRoom(struct room room[],int *n){ 
+void addRoom(struct room room[],int *n){ //case 1
 	
 	while(1){
     printf("\nNhap so phong (ID) - 'MAX:3-4 ki tu': ");
@@ -90,7 +90,7 @@ void addRoom(struct room room[],int *n){
     printf("\nThem phong thanh cong! Phong %s da duoc tao voi trang thai Trong.",room[*n-1].roomId);
 }
 
-void update(struct room room[],int *n){
+void update(struct room room[],int *n){ //case 2
 	char roomId[5];
 	getchar();
 	printf("Nhap so phong (ID) can cap nhat: ");
@@ -127,7 +127,7 @@ void update(struct room room[],int *n){
 	printf("\nCap nhat thong tin phong thanh cong!");
 }
 
-void  lock(struct room room[],int *n){ 
+void  lock(struct room room[],int *n){ //case 3
 	char roomId[5];
 	getchar();
 	printf("\nNhap so phong (ID) can bao tri:");
@@ -150,13 +150,13 @@ void  lock(struct room room[],int *n){
 		}else if(room[index].status ==2){
 			printf("\nPhong %s da o che do BAO TRI!",roomId);
 			return;
-		}	
-		room[index].status=2;
-		printf("Phong %s da duoc chuyen sang che do BAO TRI!",roomId);	
+		}
+	room[index].status=2;
+	printf("Phong %s da duoc chuyen sang che do BAO TRI!",roomId);				
 	}
 } 
 
-void displayRoomsPaging(struct room room[], int n){ 
+void displayRoomsPaging(struct room room[], int n){ //case 4
     int page = 1;
     int pageSize = 10; 
     int totalPage = n/pageSize + (n%pageSize==0?0:1);
@@ -168,9 +168,9 @@ void displayRoomsPaging(struct room room[], int n){
         printf("\nTrang thai (0:Trong , 1:Co Khach , 2:Bao tri)\n");
         printf("\n*================= DANH SACH PHONG (Page %d/%d) ===================*\n", page, totalPage);
 
-        int start = (page - 1) * pageSize;
+        int start = (page - 1) * pageSize;//chi so bat dau cua trang (vidu: trang 2 bat dau tu 11)
         int end = (start + pageSize < n) ? start + pageSize : n;
-       
+        //chi so ket thuc : (ket thuc trang do la bao nhieu)
 
         for(int i = start; i < end; i++){
             printf("|%-2d.| Phong %-5s  | Loai %-2d  |Gia %-10.3lf VND |Trang thai %-2d |\n",
@@ -273,22 +273,6 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 			printf("\nLoi! So phong chi co (3-4) ky tu!");
 			printf("\nBan phai nhap DUNG So Phong, xin luu y!\n"); 
 			continue;
-		}
-		while(1){
-      	char ch;
-		printf("\nBan co muon tiep tuc khong ('c' hay 'k'): ");
-		scanf(" %c",&ch);
-		getchar();
-		if(ch=='c'){
-			break;
-		}else if(ch=='k'){
-			printf("\nNhan Enter de thoat...");						
-			return;
-		}else{
-			printf("\nLua chon khong hop le!");
-		}
-		if(ch=='k')
-		break; 		
 		}
 		int index=-1;
     	for(int i=0;i<*n;i++){
@@ -410,7 +394,7 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 		bk[*count].days = days;
 		bk[*count].totalCost = days * room[index].price;
 
-		(*count)++;
+		(*count)++;//bth vi tri cua HOA Don ben duoi se la count nhung khi tang bien Count++ thi ben duoi HOA DON vi tri cua no se la (count-1)
 		
 		printf("\n----------------Hoa don chi tiet---------------");
 		printf("\n|Ma dat phong: %d",bk[*count-1].bookId);
@@ -427,9 +411,7 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 
 void PaymentHistory(struct booking bk[],int count,struct room room[],int *n){
 	if(count ==0){
-		getchar();
 		printf("\nChua co hoa don nao duoc tao!");
-		printf("\nNhan Enter de tiep tuc...");
 		return;
 	}
 	char roomId[5];
@@ -498,6 +480,34 @@ void PaymentHistory(struct booking bk[],int count,struct room room[],int *n){
 	}
 }
 
+int getMenuChoice() {
+    char input[100];
+
+    while (1) {
+        printf("\nMoi ban nhap lua chon: ");
+        fgets(input, sizeof(input), stdin);
+        input[strcspn(input, "\n")] = '\0';    
+		  
+        if (strlen(input) == 0) {
+            printf("Loi! Khong duoc de trong. Hay nhap lai.\n");
+            continue;
+        }     
+        int isDigit = 1;
+        for (int i = 0; i < strlen(input); i++) {
+            if (!isdigit(input[i])) {
+                isDigit = 0;
+                break;
+            }
+        }
+        if (!isDigit) {
+            printf("Loi! Chi duoc nhap so. Hay nhap lai.\n");
+            continue;
+        }
+        int choice = atoi(input);
+        return choice;
+    }
+}
+
 int main(){
 	int n=0;
 	int count=0;
@@ -528,12 +538,10 @@ int main(){
 		printf("\n--------------------------------------------");
 		printf("\n|9.Thoat MENU                              |");
 		printf("\n============================================");
-		printf("\n\nMoi ban nhap lua chon: ");
-		scanf("%d",&choice);
+	    choice = getMenuChoice();
 		
 		switch(choice){
 			case 1:{
-				getchar();
 				addRoom(room,&n);
 				printf("\n\nNhan Enter de tiep tuc...");
 				getchar();
@@ -607,7 +615,7 @@ int main(){
 					checkIn(room, &n,booking, &count);
 					getchar();
 				}	
-				printf("\nNhan Enter de quay lai MENU...");
+				printf("\n\nNhan Enter de tiep tuc...");
 				getchar();							
 				break;
 			}
