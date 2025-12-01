@@ -285,6 +285,16 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 			printf("\nBan phai nhap DUNG So Phong, xin luu y!\n"); 
 			continue;
 		}
+
+		int index=-1;
+    	for(int i=0;i<*n;i++){
+		 	if(strcmp(room[i].roomId, roomId)==0){
+				index = i;
+				break;
+			}
+		}
+		if(index==-1){
+			printf("Khong tim thay phong %s\n",roomId);
 		while(1){
       	char ch;
 		printf("\nBan co muon tiep tuc khong ('c' hay 'k'): ");
@@ -301,15 +311,6 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 		if(ch=='k')
 		break; 		
 		}
-		int index=-1;
-    	for(int i=0;i<*n;i++){
-		 	if(strcmp(room[i].roomId, roomId)==0){
-				index = i;
-				break;
-			}
-		}
-		if(index==-1){
-			printf("Khong tim thay phong %s\n",roomId);
 			continue; 
 		}else{
 			if(room[index].status==1){
