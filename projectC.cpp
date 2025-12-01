@@ -160,7 +160,7 @@ void displayRoomsPaging(struct room room[], int n){
         
         char typeStr[10], statusStr[20];
         for(int i = start; i < end; i++){
-		if(room[i].status==0) strcpy(statusStr,"Trong");
+		if(room[i].status==0) strcpy(statusStr,"Phong Trong");
 		else if(room[i].status==1) strcpy(statusStr,"Co Khach");
 		else strcpy(statusStr,"Bao tri");
 		    	
@@ -660,3 +660,4 @@ int main(){
 	}while(1);
 return 0;
 }
+
