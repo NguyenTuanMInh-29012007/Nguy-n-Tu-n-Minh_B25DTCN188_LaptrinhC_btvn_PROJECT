@@ -33,7 +33,7 @@ void addSampleRooms(struct room room[], int *n){
         {"201", 1, 450, 1},
         {"202", 2, 700, 2},
         {"301", 1, 500, 1},
-        {"301", 1, 150, 0},
+        {"302", 1, 150, 0},
         {"401", 2, 600, 0},
         {"402", 1, 550, 0},
         {"403", 2, 250, 0},
@@ -104,8 +104,10 @@ void update(struct room room[],int *n){
 		}
 	}
 	if(index==-1){
-		getchar(); 
+		getchar();
 		printf("\nLoi: Khong tim thay so phong (RoomId) phong ban vua nhap");
+	}else if(room[index].status==1){
+		printf("\nPhong %s da co KHACH khong the UPDATE",room[index].roomId);
 	}else{
 		printf("Nhap loai phong moi (1.Don // 2.Doi): ");
 	    scanf("%d",&room[index].type);
@@ -161,6 +163,8 @@ void displayRoomsPaging(struct room room[], int n){
     int pageSize = 10; 
     int totalPage = n/pageSize + (n%pageSize==0?0:1);
     
+    
+    
     int choice;
     do{
         system("cls");
@@ -171,10 +175,17 @@ void displayRoomsPaging(struct room room[], int n){
         int start = (page - 1) * pageSize;
         int end = (start + pageSize < n) ? start + pageSize : n;
        
-
+        printf("|%-2s| %-13s|%-2s|   %-16s|%-14s|\n","STT","So Phong","Loai phong","Gia tien","Trang Thai");
+        printf("*----------------------------------------------------------------*\n");
+        
+        char typeStr[10], statusStr[20];
         for(int i = start; i < end; i++){
-            printf("|%-2d.| Phong %-5s  | Loai %-2d  |Gia %-10.3lf VND |Trang thai %-2d |\n",
-                   i + 1, room[i].roomId, room[i].type, room[i].price, room[i].status);
+		if(room[i].status==0) strcpy(statusStr,"Trong");
+		else if(room[i].status==1) strcpy(statusStr,"Co Khach");
+		else strcpy(statusStr,"Bao tri");
+		    	
+            printf("|%-2d.| Phong %-5s  | Loai %-2d  |Gia %-10.3lf VND | %-12s |\n",
+                   i + 1, room[i].roomId, room[i].type, room[i].price, statusStr);
         }
 
         printf("*===*==============*==========*===================*==============*\n");
@@ -244,9 +255,9 @@ void find(struct room room[],int *n){
 	} 
 }
 
-void BubbleSort(struct room room[],int *n){
-	for(int i=0;i<*n-1;i++){
-		for(int j=0;j<*n-i-1;j++){
+void BubbleSort(struct room room[],int n){
+	for(int i=0;i<n-1;i++){
+		for(int j=0;j<n-i-1;j++){
 			if(room[j].price < room[j+1].price){
 			struct room temp = room[j];
 			room[j] = room[j+1];
@@ -426,7 +437,7 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 } 
 
 void PaymentHistory(struct booking bk[],int count,struct room room[],int *n){
-	if(count ==0){
+	if(count==0){
 		printf("\nChua co hoa don nao duoc tao!");
 		printf("\nNhan Enter de tiep tuc...");
 		return;
@@ -510,7 +521,7 @@ int getMenuChoice() {
             continue;
         }     
         int isDigit = 1;
-        for (int i = 0; i < strlen(input); i++) {
+        for (int i = 0; i < strlen(input); i++){
             if (!isdigit(input[i])) {
                 isDigit = 0;
                 break;
@@ -613,7 +624,7 @@ int main(){
 					printf("\nCan cap nhat so phong truoc!. Khong co (RoomId) nao ton tai!");
 					getchar();
 				}else{
-					BubbleSort(room,&n);
+					BubbleSort(room,n);
 					printf("\nCap nhat gia phong thanh cong!");
 					printf("\nNhan Enter de hien thi ra danh sach!");
 					getchar();
