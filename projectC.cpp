@@ -21,30 +21,10 @@ struct booking{
 	int bookId;
 	char roomId[5];
 	char customerName[50];
-	int days;
-	double totalCost;
 	struct date date;
+	double totalCost;
+	int days;
 };
-
-void addSampleRooms(struct room room[], int *n){ 
-    struct room avaiable[] = {
-        {"101", 1, 350, 0},
-        {"102", 2, 500, 0},
-        {"201", 1, 450, 1},
-        {"202", 2, 700, 2},
-        {"301", 1, 500, 1},
-        {"302", 1, 150, 0},
-        {"401", 2, 600, 2},
-        {"402", 1, 550, 2},
-        {"403", 2, 250, 0},
-    };
-
-    int size = sizeof(avaiable)/sizeof(avaiable[0]);
-    for(int i=0;i<size;i++){
-        room[*n] = avaiable[i];
-        (*n)++;
-    }
-}
 
 void addRoom(struct room room[],int *n){ 
 	
@@ -466,16 +446,12 @@ void PaymentHistory(struct booking bk[],int count,struct room room[],int *n){
 			printf("phong %s khong ton tai!\n",roomId);
 			continue;	
 		}
-		for(int i=0;i<count;i++){
-			if(strcmp(bk[i].roomId,roomId)==0){
-				count++;
-			}
-		}
-		    int flag = 0;
-   				printf("\n============================= LICH SU THANH TOAN =============================\n");
-   				printf("|%-10s |%-25s |%-8s |%-8s |%-15s |\n",
-           				"So Phong", "Khach Hang", "Ngay nhan", "So Ngay", "Tong Tien");
-           		printf("------------------------------------------------------------------------------\n");		
+
+		int flag = 0;
+   			printf("\n============================= LICH SU THANH TOAN =============================\n");
+   			printf("|%-10s |%-25s |%-8s |%-8s |%-15s |\n",
+         			"So Phong", "Khach Hang", "Ngay nhan", "So Ngay", "Tong Tien");
+           	printf("------------------------------------------------------------------------------\n");		
 
    			for (int i = 0; i < count; i++) {
         		if (strcmp(bk[i].roomId, roomId) == 0) {
@@ -538,13 +514,24 @@ int getMenuChoice() {
 }
 
 int main(){
-	int n=0;
-	int count=0;
 	int choice;
-	struct room room[MAX];
-	struct booking booking[MAX];
-		
-	addSampleRooms(room,&n);
+	struct room room[MAX] ={
+		{"101", 1, 350, 0},
+        {"102", 2, 500, 0},
+        {"201", 1, 450, 1},
+        {"202", 2, 700, 2},
+        {"301", 1, 500, 1},
+        {"302", 1, 150, 0},
+        {"401", 2, 600, 2},
+        {"402", 1, 550, 2},
+        {"403", 2, 250, 0},
+	};
+	int n=9;	
+	struct booking booking[MAX] ={
+		{1,"201","Dinh Duc Tu",{10,12,2025}, 10*450 ,10 },
+		{2,"301","Nguyen Tuan Minh",{11,12,2025}, 5*500 , 5}
+	};
+	int count=2;	
 	
 	do{
 		system("cls");
