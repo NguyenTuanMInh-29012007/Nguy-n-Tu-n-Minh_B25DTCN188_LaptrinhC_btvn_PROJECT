@@ -1,3 +1,4 @@
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -26,6 +27,62 @@ struct booking{
 	int days;
 };
 
+int getChoice() {
+    char input[10];
+
+    while (1) {
+        printf("\nNhap loai phong (1.Don // 2.Doi): ");
+        fgets(input, sizeof(input), stdin);
+        input[strcspn(input, "\n")] = '\0';    
+		  
+        if (strlen(input) == 0) {
+            printf("Loi! Khong duoc de trong. Hay nhap lai.\n");
+            continue;
+        }     
+        int isDigit = 1;
+        for (int i = 0; i < strlen(input); i++){
+            if (!isdigit(input[i])) {
+                isDigit = 0;
+                break;
+            }
+        }
+        if (!isDigit) {
+            printf("\nLoi loai phong CHI duoc chon 1(Don) hoac 2(Doi)!");
+            continue;
+        }
+        int type = atoi(input);
+        return type;
+    }
+}
+
+int getPriceChoice() {
+    char input[10];
+
+    while (1) {
+        printf("Nhap gia phong: ");
+        fgets(input, sizeof(input), stdin);
+        input[strcspn(input, "\n")] = '\0';    
+		  
+        if (strlen(input) == 0) {
+            printf("Loi! Khong duoc de trong. Hay nhap lai.\n");
+            continue;
+        }     
+        int isDigit = 1;
+        for (int i = 0; i < strlen(input); i++){
+            if (!isdigit(input[i])) {
+                isDigit = 0;
+                break;
+            }
+        }
+        if (!isDigit) {
+            printf("\nLoi: Gia phong phai LON HON (>) 0!\n");
+            continue;
+        }
+        int price = atoi(input);
+        return price;
+    }
+}
+
 void addRoom(struct room room[],int *n){ 
 	
 	while(1){
@@ -46,23 +103,25 @@ void addRoom(struct room room[],int *n){
 		break; 
 	}
 			
-	while(room[*n].type !=1 && room[*n].type!=2){
-		printf("\nNhap loai phong (1.Don // 2.Doi): ");
-		scanf("%d",&room[*n].type);
-		getchar();
-		if(room[*n].type !=1 && room[*n].type!=2){
-			printf("\nLoi loai phong CHI duoc chon 1(Don) hoac 2(Doi)!");
-		}				
+	while(1){
+		int type = getChoice();	
+		if(type == 1 || type ==2){
+			room[*n].type = type;
+			break;
+		}else{
+			printf("\nLoi loai phong CHI duoc chon 1(Don) hoac 2(Doi)!\n");
+		}			
 	}
 	
-	do{
-		printf("Nhap gia phong: ");
-		scanf("%lf",&room[*n].price);
-		getchar();
-		if(room[*n].price<=0){
+	while(1){
+		int price = getPriceChoice();
+		if(price > 0){
+			room[*n].price = (double)price;
+			break;
+		}else{
 			printf("\nLoi: Gia phong phai LON HON (>) 0!\n");
-		}	
-	}while(room[*n].price<=0);
+		}
+	}
 	
 	room[*n].status=0;			
     (*n)++;
@@ -84,26 +143,28 @@ void update(struct room room[],int *n){
 		}
 	}
 	if(index==-1){
-		getchar();
 		printf("\nLoi: Khong tim thay so phong (RoomId) phong ban vua nhap");
 	}else if(room[index].status==1){
 		printf("\nPhong %s da co KHACH khong the UPDATE",room[index].roomId);
 	}else{
-		printf("Nhap loai phong moi (1.Don // 2.Doi): ");
-	    scanf("%d",&room[index].type);
-	    getchar();
-	    
-	    if(room[index].type !=1 && room[index].type!=2){
-		    printf("\nLoi loai phong chi duoc chon 1(Don) hoac 2(Doi)!");
-		    return;
-	}	
+		while(1){
+		int type = getChoice();	
+		if(type == 1 || type ==2){
+			room[index].type = type;
+			break;
+		}else{
+			printf("\nLoi loai phong CHI duoc chon 1(Don) hoac 2(Doi)!\n");
+			}			
+		}	
 	
-	printf("Nhap gia phong moi: ");
-	scanf("%lf",&room[index].price);
-	getchar();
-	if(room[index].price<=0){
-		printf("\nLoi: Gia phong phai lon hon 0!");
-		return;	
+		while(1){
+		int price = getPriceChoice();
+		if(price > 0){
+			room[index].price = (double)price;
+			break;
+		}else{
+			printf("\nLoi: Gia phong phai LON HON (>) 0!\n");
+		}
 	}	
 		printf("\nCap nhat thong tin phong thanh cong!");
 	}
@@ -212,13 +273,14 @@ void displayRoomsPaging(struct room room[], int n){
 void find(struct room room[],int *n){
 	int type;
 	
-	while(type !=1 && type!=2){
-	printf("\nNhap loai phong (1.Don // 2.Doi): ");
-	scanf("%d",&type);
-	getchar();
-	if(type !=1 && type!=2){
-		printf("\nLoi loai phong CHI duoc chon 1(Don) hoac 2(Doi)!");
-	}				
+	while(1){
+		type = getChoice();	
+		if(type == 1 || type ==2){
+			room[*n].type = type;
+			break;
+		}else{
+			printf("\nLoi loai phong CHI duoc chon 1(Don) hoac 2(Doi)!\n");
+		}			
 	}
 	
 	printf("\n*=== Danh sach phong con TRONG ====*"); 
@@ -486,7 +548,7 @@ void PaymentHistory(struct booking bk[],int count,struct room room[],int *n){
 }
 
 int getMenuChoice() {
-    char input[100];
+    char input[10];
 
     while (1) {
         printf("\nMoi ban nhap lua chon: ");
@@ -660,7 +722,6 @@ int main(){
 	}while(1);
 return 0;
 }
-
 
 
 
