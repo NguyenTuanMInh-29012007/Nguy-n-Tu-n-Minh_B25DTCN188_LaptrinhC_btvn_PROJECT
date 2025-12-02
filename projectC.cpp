@@ -505,7 +505,7 @@ int getMenuChoice() {
             }
         }
         if (!isDigit) {
-            printf("Loi! Chi duoc nhap so. Hay nhap lai.\n");
+            printf("Loi! Chi duoc nhap so nguyen (1-9). Hay nhap lai.\n");
             continue;
         }
         int choice = atoi(input);
@@ -660,6 +660,7 @@ int main(){
 	}while(1);
 return 0;
 }
+
 
 
 
