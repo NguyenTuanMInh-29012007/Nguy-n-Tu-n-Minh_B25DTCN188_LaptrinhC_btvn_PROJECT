@@ -27,6 +27,34 @@ struct booking{
 	int days;
 };
 
+int getMenuChoice() {
+    char input[10];
+
+    while (1) {
+        printf("\nMoi ban nhap lua chon: ");
+        fgets(input, sizeof(input), stdin);
+        input[strcspn(input, "\n")] = '\0';    
+		  
+        if (strlen(input) == 0) {
+            printf("Loi! Khong duoc de trong. Hay nhap lai.\n");
+            continue;
+        }     
+        int isDigit = 1;
+        for (int i = 0; i < strlen(input); i++){
+            if (!isdigit(input[i])) {
+                isDigit = 0;
+                break;
+            }
+        }
+        if (!isDigit) {
+            printf("Loi! Chi duoc nhap so nguyen (1-9). Hay nhap lai.\n");
+            continue;
+        }
+        int choice = atoi(input);
+        return choice;
+    }
+}
+
 int getChoice() {
     char input[10];
 
@@ -233,9 +261,7 @@ void displayRoomsPaging(struct room room[], int n){
         printf("\n1. Trang truoc");
         printf("\n2. Trang sau");
         printf("\n0. Quay lai MENU");
-        printf("\nNhap lua chon: ");
-        scanf("%d", &choice);
-        getchar();
+		choice = getMenuChoice();
         
         switch(choice){
         	case 1:{
@@ -545,34 +571,6 @@ void PaymentHistory(struct booking bk[],int count,struct room room[],int *n){
 		break; 		
 		}
 	}
-}
-
-int getMenuChoice() {
-    char input[10];
-
-    while (1) {
-        printf("\nMoi ban nhap lua chon: ");
-        fgets(input, sizeof(input), stdin);
-        input[strcspn(input, "\n")] = '\0';    
-		  
-        if (strlen(input) == 0) {
-            printf("Loi! Khong duoc de trong. Hay nhap lai.\n");
-            continue;
-        }     
-        int isDigit = 1;
-        for (int i = 0; i < strlen(input); i++){
-            if (!isdigit(input[i])) {
-                isDigit = 0;
-                break;
-            }
-        }
-        if (!isDigit) {
-            printf("Loi! Chi duoc nhap so nguyen (1-9). Hay nhap lai.\n");
-            continue;
-        }
-        int choice = atoi(input);
-        return choice;
-    }
 }
 
 int main(){
