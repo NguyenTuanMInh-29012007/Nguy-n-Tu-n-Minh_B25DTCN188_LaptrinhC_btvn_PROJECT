@@ -362,7 +362,7 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 							printf("\nThang (Month) vua nhap khong hop le!");
 							success=0;
 						}else{
-							if(bk[*count].date.month==1 || bk[*count].date.month==3 || bk[*count].date.month==7 || bk[*count].date.month==8 || bk[*count].date.month==10 || bk[*count].date.month==12){
+							if(bk[*count].date.month==1 || bk[*count].date.month==3 ||bk[*count].date.month==5 || bk[*count].date.month==7 || bk[*count].date.month==8 || bk[*count].date.month==10 || bk[*count].date.month==12){
 								if(bk[*count].date.day<1 || bk[*count].date.day>31){
 									printf("\nNgay (day) khong hop le!");
 									success=0;
@@ -660,5 +660,6 @@ int main(){
 	}while(1);
 return 0;
 }
+
 
 
