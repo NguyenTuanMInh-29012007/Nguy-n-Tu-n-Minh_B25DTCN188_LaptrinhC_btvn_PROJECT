@@ -298,7 +298,7 @@ void checkIn(struct room room[],int *n,struct booking bk[],int *count){
 				continue; 
 			}
 			if(room[index].status==2){
-				printf("\nPhong %s da duoc BAO TRI \nNhan Enter de tiep tuc... ",room[index].roomId);
+				printf("\nPhong %s dang BAO TRI \nNhan Enter de tiep tuc... ",room[index].roomId);
 				continue; 
 			}
 			if(room[index].status==0){
@@ -660,4 +660,5 @@ int main(){
 	}while(1);
 return 0;
 }
+
 
