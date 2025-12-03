@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -198,14 +197,14 @@ void update(struct room room[],int *n){
 	}
 }
 
-void  lock(struct room room[],int *n){ 
+void  lock(struct room room[],int n){ 
 	char roomId[5];
 	printf("\nNhap so phong (ID) can bao tri:");
 	fgets(roomId,5,stdin);
 	roomId[strcspn(roomId,"\n")] = '\0';	
 	
 	int index=-1;
-	for(int i=0;i<*n;i++){
+	for(int i=0;i<n;i++){
 		if(strcmp(room[i].roomId,roomId)==0){
 			index =i;
 			break;
@@ -249,6 +248,7 @@ void displayRoomsPaging(struct room room[], int n){
         
         char typeStr[10], statusStr[20];
         for(int i = start; i < end; i++){
+        	
 		if(room[i].status==0) strcpy(statusStr,"Phong Trong");
 		else if(room[i].status==1) strcpy(statusStr,"Co Khach");
 		else strcpy(statusStr,"Bao tri");
@@ -296,13 +296,13 @@ void displayRoomsPaging(struct room room[], int n){
     }while(1);
 }
 
-void find(struct room room[],int *n){
+void find(struct room room[],int n){
 	int type;
 	
 	while(1){
 		type = getChoice();	
 		if(type == 1 || type ==2){
-			room[*n].type = type;
+			room[n].type = type;
 			break;
 		}else{
 			printf("\nLoi loai phong CHI duoc chon 1(Don) hoac 2(Doi)!\n");
@@ -311,7 +311,7 @@ void find(struct room room[],int *n){
 	
 	printf("\n*=== Danh sach phong con TRONG ====*"); 
 	int flag = 0; 
-	for(int i=0;i<*n;i++){
+	for(int i=0;i<n;i++){
 		if(room[i].type==type && room[i].status==0){
 			printf("\n|Phong %s | Loai %d | Gia: %.3lf |",room[i].roomId,room[i].type,room[i].price);
 			printf("\n*----------*--------*--------------*");
@@ -578,15 +578,16 @@ int main(){
 	struct room room[MAX] ={
 		{"101", 1, 350, 0},
         {"102", 2, 500, 0},
-        {"201", 1, 450, 1},
-        {"202", 2, 700, 2},
-        {"301", 1, 500, 1},
-        {"302", 1, 150, 0},
-        {"401", 2, 600, 2},
-        {"402", 1, 550, 2},
-        {"403", 2, 250, 0},
+        {"103", 1, 450, 1},
+        {"201", 2, 700, 2},
+        {"202", 1, 500, 1},
+        {"203", 1, 150, 0},
+        {"301", 2, 600, 2},
+        {"302", 1, 550, 2},
+        {"303", 2, 50, 0},
+        {"304", 1, 75, 1},
 	};
-	int n=9;	
+	int n=10;	
 	struct booking booking[MAX] ={
 		{1,"201","Dinh Duc Tu",{10,12,2025}, 10*450 ,10 },
 		{2,"301","Nguyen Tuan Minh",{11,12,2025}, 5*500 , 5}
@@ -639,7 +640,7 @@ int main(){
 					printf("\nCan cap nhat so phong truoc!. Khong co (RoomId) nao ton tai!");
 					getchar();
 				}else{
-					lock(room,&n);
+					lock(room,n);
 				}	
 				printf("\n\nNhan Enter de tiep tuc...");
 				getchar();								
@@ -661,7 +662,7 @@ int main(){
 					printf("\nCan cap nhat so phong truoc!. Khong co (RoomId) nao ton tai!");
 					getchar();
 				}else{
-					find(room,&n);
+					find(room,n);
 				}	
 				printf("\n\nNhan Enter de tiep tuc...");
 				getchar();									
@@ -720,6 +721,3 @@ int main(){
 	}while(1);
 return 0;
 }
-
-
-
